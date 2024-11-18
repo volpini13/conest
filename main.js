@@ -1,25 +1,28 @@
-/**
- * Processo principal
- */
-
-const { app, BrowserWindow, nativeTheme, Menu, shell, ipcMain } = require('electron/main')
+const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron/main')
 const path = require('node:path')
 
+// Importação do módulo de conexão
+const { dbConnect, desconectar } = require('./database.js')
+// status de conexão com o banco. No MongoDB é mais eficiente manter uma única conexão aberta durante todo o tempo de vida do aplicativo e usá-la quando necessário. Fechar e reabrir constantemente a conexão aumenta a sobrecarga e reduz o desempenho do servidor.
+// a variável abaixo é usada para garantir que o banco de dados inicie desconectado (evitar abrir outra instância)
+let dbcon = null
+
+// janela principal
 let win
 function createWindow() {
-    nativeTheme.themeSource = 'dark'
     win = new BrowserWindow({
-        width: 1010,
-        height: 720,
+        width: 800,
+        height: 600,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
     })
+
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
     win.loadFile('./src/views/index.html')
 
-    // Botões
+    // botões
     ipcMain.on('open-client', () => {
         clientWindow()
     })
@@ -39,7 +42,6 @@ function createWindow() {
 
 // Janela sobre
 function aboutWindow() {
-    nativeTheme.themeSource = 'dark'
     const main = BrowserWindow.getFocusedWindow()
     let about
     if (main) {
@@ -60,7 +62,6 @@ function aboutWindow() {
     about.loadFile('./src/views/sobre.html')
 
     ipcMain.on('close-about', () => {
-        console.log("Recebi a mensagem close-about")
         if (about && !about.isDestroyed()) {
             about.close()
         }
@@ -69,7 +70,6 @@ function aboutWindow() {
 
 // Janela clientes
 function clientWindow() {
-    nativeTheme.themeSource = 'dark'
     const main = BrowserWindow.getFocusedWindow()
     let client
     if (main) {
@@ -89,7 +89,6 @@ function clientWindow() {
 
 // Janela fornecedores
 function supplierWindow() {
-    nativeTheme.themeSource = 'dark'
     const main = BrowserWindow.getFocusedWindow()
     let supplier
     if (main) {
@@ -109,7 +108,6 @@ function supplierWindow() {
 
 // Janela produtos
 function productWindow() {
-    nativeTheme.themeSource = 'dark'
     const main = BrowserWindow.getFocusedWindow()
     let product
     if (main) {
@@ -129,7 +127,6 @@ function productWindow() {
 
 // Janela relatórios
 function reportWindow() {
-    nativeTheme.themeSource = 'dark'
     const main = BrowserWindow.getFocusedWindow()
     let report
     if (main) {
@@ -148,7 +145,22 @@ function reportWindow() {
 }
 
 app.whenReady().then(() => {
-    createWindow()
+    createWindow()   
+    // Melhor local para estabelecer a conexão com o banco de dados
+    // Importar antes o módulo de conexão no início do código
+
+    // conexão com o banco
+    ipcMain.on('db-connect', async (event, message) => {
+        // a linha abaixo estabelece a conexão com o banco
+        dbcon = await dbConnect()
+        // enviar ao renderizador uma mensagem para trocar o ícone do status do banco de dados
+        event.reply('db-message', "conectado")     
+    })
+
+    // desconectar do banco ao encerrar a aplicação
+    app.on('before-quit', async () => {
+        await desconectar(dbcon)
+    })
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
@@ -168,19 +180,22 @@ const template = [
         label: 'Arquivo',
         submenu: [
             {
+                type: 'separator'
+            },
+            {
                 label: 'Sair',
                 accelerator: 'Alt+F4',
                 click: () => app.quit()
             }
         ]
     },
+
     {
         label: 'Zoom',
         submenu: [
             {
                 label: 'Aplicar zoom',
-                accelerator: 'CmdOrCtrl+=',
-                click: () => win.webContents.zoomFactor += 0.1
+                role: 'zoomIn'
             },
             {
                 label: 'Reduzir',
@@ -189,7 +204,7 @@ const template = [
             {
                 label: 'Restaurar o zoom padrão',
                 role: 'resetZoom'
-            },
+            }
         ]
     },
     {
@@ -197,7 +212,7 @@ const template = [
         submenu: [
             {
                 label: 'Repositório',
-                click: () => shell.openExternal('https://github.com/volpini13/conest.git')
+                click: () => shell.openExternal('https://github.com/professorjosedeassis/conestv3')
             },
             {
                 label: 'Sobre',
