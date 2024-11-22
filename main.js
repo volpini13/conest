@@ -215,7 +215,7 @@ const template = [
         submenu: [
             {
                 label: 'Repositório',
-                click: () => shell.openExternal('https://github.com/professorjosedeassis/conestv3')
+                click: () => shell.openExternal('https://github.com/volpini13/conest.git')
             },
             {
                 label: 'Sobre',
