@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron/main')
+const { app, BrowserWindow, Menu, shell, ipcMain, dialog } = require('electron/main')
 const path = require('node:path')
 
 // Importação do módulo de conexão
@@ -21,7 +21,8 @@ function createWindow() {
         }
     })
 
-    Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+    // Menu personalizado (comentar para debugar)
+    //Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
     win.loadFile('./src/views/index.html')
 
@@ -79,7 +80,7 @@ function clientWindow() {
         client = new BrowserWindow({
             width: 800,
             height: 600,
-            autoHideMenuBar: true,
+            //autoHideMenuBar: true,
             parent: main,
             modal: true,
             webPreferences: {
@@ -148,7 +149,7 @@ function reportWindow() {
 }
 
 app.whenReady().then(() => {
-    createWindow()   
+    createWindow()
     // Melhor local para estabelecer a conexão com o banco de dados
     // Importar antes o módulo de conexão no início do código
 
@@ -157,7 +158,7 @@ app.whenReady().then(() => {
         // a linha abaixo estabelece a conexão com o banco
         dbcon = await dbConnect()
         // enviar ao renderizador uma mensagem para trocar o ícone do status do banco de dados
-        event.reply('db-message', "conectado")     
+        event.reply('db-message', "conectado")
     })
 
     // desconectar do banco ao encerrar a aplicação
@@ -224,3 +225,35 @@ const template = [
         ]
     }
 ]
+
+// CRUD Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// Recebimento dos dados do formulário
+ipcMain.on('new-client', async (event, cliente) => {
+    // Teste de recebimento dos dados (Passo 2 - slide) Importante!
+    console.log(cliente)
+
+    // Passo 3 - slide (cadastrar os dados mo banco de dados)
+    try {
+        // Criar um novo objeto usando a classe modelo
+        const novoCliente = new clienteModel({
+            nomeCliente: cliente.nomeCli,
+            foneCliente: cliente.foneCli,
+            emailCliente: cliente.emailCli
+        })
+        // A linha abaixo usa a biblioteca mongoose para salvar
+        await novoCliente.save()
+
+        // Confirmação de cliente adicionado no banco
+        dialog.showMessageBox({
+            type: 'info',
+            title: 'Aviso',
+            message: 'Cliente adicionado com sucesso',
+            buttons: ['OK']
+        })
+        // Enviar uma resposta ao rendenizador resetar o form
+        event.reply('reset-form')
+
+    } catch (error) {
+        console.log(error)
+    }
+})
