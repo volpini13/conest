@@ -32,9 +32,9 @@ formCliente.addEventListener('submit', async (event) => {
 
 // Reset Form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 api.resetarFormulario((args) => {
-    let nomeCliente = document.getElementById('inputNameClient').value=""
-    let foneCliente = document.getElementById('inputPhoneClient').value=""
-    let emailCliente = document.getElementById('inputEmailClient').value=""
+    let nomeCliente = document.getElementById('inputNameClient').value = ""
+    let foneCliente = document.getElementById('inputPhoneClient').value = ""
+    let emailCliente = document.getElementById('inputEmailClient').value = ""
 })
 
 

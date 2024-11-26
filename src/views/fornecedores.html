@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,57 @@
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/css/style.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Fornecedores</h1>
+        <form id="frmFornecedor" class="mt-2 row g-3">
+
+            <!-- Buscar cliente -->
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="searchFornecedor" maxlength="30" spellcheck="false">
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" id="btnRead">Buscar</button>
+            </div>
+
+            <hr class="mt-4 border border-primary border -1">
+
+            <!-- Id do cliente (oculto) -->
+            <div class="col-md-6" id="inputFornecedor">
+                <input class="form-control" type="text" id="inputFornecedor" placeholder="id">
+            </div>
+
+            <!-- Fornecedor -->
+            <div class="col-md-8">
+                <label for="inputNameClient" class="form-label">Razão Social</label>
+                <input class="form-control" type="text" id="inputNameFornecedor" spellcheck="false" required maxlength="50">
+            </div>
+
+            <!-- Fone -->
+            <div class="col-md-4">
+                <label for="inputPhoneClient" class="form-label">Telefone</label>
+                <input class="form-control" type="tel" id="inputPhoneFornecedor" spellcheck="false" required maxlength="15">
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-8">
+                <label for="inputEmailClient" class="form-label">Site</label>
+                <input class="form-control" type="text" id="inputSiteFornecedor" spellcheck="false">
+            </div>
+
+            <!-- Botões -->
+            <div class="mt-5">
+                <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
+                <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
+                <button type="submit" class="btn btn-danger" id="btnDelete">Excluir</button>
+                <button type="reset" class="btn" id="btnReset"></button>
+            </div>
+
+        </form>
     </div>
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="fornecedores.js"></script>
 </body>
+
 </html>
