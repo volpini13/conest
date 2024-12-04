@@ -1,39 +1,41 @@
 /**
- * Processo de rendenização
+ * Processo de renderizção
  * clientes.html
  */
 
-// CRUD Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-// Passo 1 - slide (capturar os dados dos inputs do form)
-let formProdutos = document.getElementById('frmProdutos')
-let nomeProdutos = document.getElementById('inputNameProdutos')
-let codigoProdutos = document.getElementById('inputCodigoProdutos')
-let precoProdutos = document.getElementById('inputPrecoProdutos')
 
-// Evento associado ao botão adicionar (quando o botão for pressionado)
+//Crud Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+//Passo 1- slide (capturar os dados dos imputs do form)
+let formProdutos = document.getElementById('frmProduct')
+let nomeProdutos = document.getElementById('inputNameProduct')
+let precoProdutos = document.getElementById('inputPrecoProduct') 
+let codigoProdutos = document.getElementById('inputCodigoProduct')
+
+//Evento  associado ao botão adicionar (quando o botão for pressionado)
 formProdutos.addEventListener('submit', async (event) => {
-    // Editar o comportamento padrão de envio em um form
+    //Evitar o comportamento pradrão de envio em um form
     event.preventDefault()
-    // Teste Importante! (fluxo dos dados)
-   // console.log(nomeFornecedor.value, foneFornecedor.value, siteFornecedor.value)
+    //Teste importante! (fluxo de dados)
+    //console.log(nomeCliente.value, foneCliente.value, emailCliente.value)
 
-    // Passo 2 - slide (envio das informações para o main)
-    // Criar um objeto
+    //Passo 2 - slide (envio das informações para o main)
+    //Criar um objeto
     const produtos = {
-        nomeProd: nomeProdutos.value,
-        codigoProd: codigoProdutos.value,
-        precoProd: precoProdutos.value
+        nomePro: nomeProdutos.value, 
+        precoPro: precoProdutos.value, 
+        codigoPro: codigoProdutos.value
     }
     api.novoProdutos(produtos)
 })
-// Fim do CRUD Create <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//Fim CRUD Create <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
-// Reset Form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-api.resetarFormulario((args) => {
-    let nomeProdutos = document.getElementById('inputNameProdutos').value = ""
-    let codigoProdutos = document.getElementById('inputCodigoProdutos').value = ""
-    let precoProdutos = document.getElementById('inputPrecoProdutos').value = ""
+//Reset Form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+api.resetarFormulario((args)=>{
+   document.getElementById('inputNameProduct').value=""
+   document.getElementById('inputPrecoProduct').value=""
+   document.getElementById('inputCodigoProduct').value=""
 })
-// Fim Reset Form <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+//Fim - Reset Form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

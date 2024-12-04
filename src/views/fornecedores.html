@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://viacep.com.br">
     <title>Conest - Fornecedores</title>
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/css/style.css">
@@ -13,11 +13,11 @@
 <body>
     <div class="container">
         <h1>Fornecedores</h1>
-        <form id="frmFornecedor" class="mt-2 row g-3">
+        <form id="frmSupplier" class="mt-2 row g-3">
 
-            <!-- Buscar cliente -->
+            <!-- Buscar Fornecedores -->
             <div class="col-md-6">
-                <input type="text" class="form-control" id="searchFornecedor" maxlength="30" spellcheck="false">
+                <input type="text" class="form-control" id="searchSupplier" maxlength="30" spellcheck="false">
             </div>
             <div class="col-md-4">
                 <button class="btn btn-primary" id="btnRead">Buscar</button>
@@ -26,27 +26,72 @@
             <hr class="mt-4 border border-primary border -1">
 
             <!-- Id do cliente (oculto) -->
-            <div class="col-md-6" id="inputFornecedor">
-                <input class="form-control" type="text" id="inputFornecedor" placeholder="id">
+            <div class="col-md-6" id="idSupplier">
+                <input class="form-control" type="text" id="inpuSupplier" placeholder="id">
             </div>
 
-            <!-- Fornecedor -->
+            <!-- Nome -->
             <div class="col-md-8">
-                <label for="inputNameClient" class="form-label">Razão Social</label>
-                <input class="form-control" type="text" id="inputNameFornecedor" spellcheck="false" required maxlength="50">
+                <label for="inputNameSupplier" class="form-label">Razão Social</label>
+                <input class="form-control" type="text" id="inputNameSupplier" spellcheck="false" required maxlength="50">
             </div>
 
             <!-- Fone -->
             <div class="col-md-4">
-                <label for="inputPhoneClient" class="form-label">Telefone</label>
-                <input class="form-control" type="tel" id="inputPhoneFornecedor" spellcheck="false" required maxlength="15">
+                <label for="inputPhoneSupplier" class="form-label">Telefone</label>
+                <input class="form-control" type="tel" id="inputPhoneSupplier" spellcheck="false" required maxlength="15">
             </div>
 
             <!-- Email -->
             <div class="col-md-8">
-                <label for="inputEmailClient" class="form-label">Site</label>
-                <input class="form-control" type="text" id="inputSiteFornecedor" spellcheck="false">
+                <label for="inputSiteSupplier" class="form-label">Site</label>
+                <input class="form-control" type="text" id="inputSiteSupplier" spellcheck="false" maxlength="50">
             </div>
+
+             <!-- CEP -->
+             <div class="col-md-4">
+                <label for="inputCepSupplier" class="form-label">CEP</label>
+                <input class="form-control" type="cep" id="inputCepSupplier" spellcheck="false" maxlength="50" onblur="buscarEndereco()" required>
+            </div>
+
+
+            <!-- LOGRADOURO-->
+            <div class="col-md-6">
+                <label for="inputLogradouroSupplier" class="form-label">Logradouro</label>
+                <input class="form-control" type="logradouro" id="inputLogradouroSupplier" spellcheck="false"
+                    maxlength="50">
+            </div>
+
+            <!-- BAIRRO-->
+            <div class="col-md-6">
+                <label for="inputBairroSupplier" class="form-label">Bairro</label>
+                <input class="form-control" type="bairro" id="inputBairroSupplier" spellcheck="false" maxlength="50">
+            </div>
+
+            <!-- CIDADE-->
+            <div class="col-md-4">
+                <label for="inputCidadeSupplier" class="form-label">Cidade</label>
+                <input class="form-control" type="text" id="inputCidadeSupplier" spellcheck="false" maxlength="50">
+            </div>
+
+             <!-- UF-->
+             <div class="col-md-1">
+                <label for="inputUfSupplier" class="form-label">UF</label>
+                <input class="form-control" type="text" id="inputUfSupplier" spellcheck="false" maxlength="50">
+            </div>
+
+            <!-- Numero-->
+            <div class="col-md-2">
+                <label for="inputNumeroSupplier" class="form-label">Número</label>
+                <input class="form-control" type="number" id="inputNumeroSupplier" spellcheck="false" maxlength="50" required>
+            </div>
+
+             <!--Complemento-->
+             <div class="col-md-5">
+                <label for="inputComplementoSupplier" class="form-label">Complemento</label>
+                <input class="form-control" type="text" id="inputComplementoSupplier" spellcheck="false" maxlength="50">
+            </div>
+
 
             <!-- Botões -->
             <div class="mt-5">

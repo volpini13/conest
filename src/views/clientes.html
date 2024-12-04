@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://viacep.com.br">
     <title>Conest - Clientes</title>
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
     <link rel="stylesheet" href="../public/css/style.css">
@@ -27,7 +27,7 @@
 
             <!-- Id do cliente (oculto) -->
             <div class="col-md-6" id="idClient">
-                <input class="form-control" type="text" id="inputClient" placeholder="id">
+                <input class="form-control" type="text" id="inpuClient" placeholder="id">
             </div>
 
             <!-- Nome -->
@@ -48,6 +48,51 @@
                 <input class="form-control" type="email" id="inputEmailClient" spellcheck="false" maxlength="50">
             </div>
 
+            <!-- CEP -->
+            <div class="col-md-4">
+                <label for="inputCepClient" class="form-label">CEP</label>
+                <input class="form-control" type="cep" id="inputCepClient" spellcheck="false" maxlength="50" onblur="buscarEndereco()" required>
+            </div>
+
+            <!-- LOGRADOURO-->
+            <div class="col-md-6">
+                <label for="inputLogradouroClient" class="form-label">Logradouro</label>
+                <input class="form-control" type="logradouro" id="inputLogradouroClient" spellcheck="false"
+                    maxlength="50">
+            </div>
+
+            <!-- BAIRRO-->
+            <div class="col-md-6">
+                <label for="inputBairroClient" class="form-label">Bairro</label>
+                <input class="form-control" type="bairro" id="inputBairroClient" spellcheck="false" maxlength="50">
+            </div>
+
+            <!-- CIDADE-->
+            <div class="col-md-4">
+                <label for="inputCidadeClient" class="form-label">Cidade</label>
+                <input class="form-control" type="text" id="inputCidadeClient" spellcheck="false" maxlength="50">
+            </div>
+
+              <!-- UF-->
+              <div class="col-md-1">
+                <label for="inputUfClient" class="form-label">UF</label>
+                <input class="form-control" type="text" id="inputUfClient" spellcheck="false" maxlength="50">
+            </div>
+
+
+             <!-- Numero-->
+             <div class="col-md-2">
+                <label for="inputNumeroClient" class="form-label">Número</label>
+                <input class="form-control" type="number" id="inputNumeroClient" spellcheck="false" maxlength="50" required>
+            </div>
+
+             <!--Complemento-->
+             <div class="col-md-5">
+                <label for="inputComplementoClient" class="form-label">Complemento</label>
+                <input class="form-control" type="text" id="inputComplementoClient" spellcheck="false" maxlength="50">
+            </div>
+
+
             <!-- Botões -->
             <div class="mt-5">
                 <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
@@ -60,6 +105,7 @@
     </div>
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="clientes.js"></script>
+   
 </body>
 
 </html>

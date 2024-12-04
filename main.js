@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, shell, ipcMain, dialog } = require('electron/main')
+const { app, BrowserWindow, Menu, shell, ipcMain, dialog} = require('electron/main')
 const path = require('node:path')
 
 // Importação do módulo de conexão
@@ -7,13 +7,13 @@ const { dbConnect, desconectar } = require('./database.js')
 // a variável abaixo é usada para garantir que o banco de dados inicie desconectado (evitar abrir outra instância)
 let dbcon = null
 
-// Importação do Schema Clientes da camada model
+//Importação do esquema clintes da camada model 
 const clienteModel = require('./src/models/Clientes.js')
 
-// Importação do Schema Fornecedores da camada model
+// Importação do schema Fornecedores da camada model
 const fornecedorModel = require('./src/models/Fornecedores.js')
 
-// Importação do Schema Fornecedores da camada model
+// Importação do schema Fornecedores da camada model
 const produtosModel = require('./src/models/Produtos.js')
 
 
@@ -28,7 +28,7 @@ function createWindow() {
         }
     })
 
-    // Menu personalizado (comentar para debugar)
+    //Menu personaliazdo( comentar para debugar)
     //Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
     win.loadFile('./src/views/index.html')
@@ -86,8 +86,8 @@ function clientWindow() {
     if (main) {
         client = new BrowserWindow({
             width: 800,
-            height: 600,
-            //autoHideMenuBar: true,
+            height:800,
+           // autoHideMenuBar: true,
             parent: main,
             modal: true,
             webPreferences: {
@@ -105,7 +105,7 @@ function supplierWindow() {
     if (main) {
         supplier = new BrowserWindow({
             width: 800,
-            height: 600,
+            height: 800,
             autoHideMenuBar: true,
             parent: main,
             modal: true,
@@ -124,7 +124,7 @@ function productWindow() {
     if (main) {
         product = new BrowserWindow({
             width: 800,
-            height: 600,
+            height: 800,
             autoHideMenuBar: true,
             parent: main,
             modal: true,
@@ -143,7 +143,7 @@ function reportWindow() {
     if (main) {
         report = new BrowserWindow({
             width: 800,
-            height: 600,
+            height: 800,
             autoHideMenuBar: true,
             parent: main,
             modal: true,
@@ -156,7 +156,7 @@ function reportWindow() {
 }
 
 app.whenReady().then(() => {
-    createWindow()
+    createWindow()   
     // Melhor local para estabelecer a conexão com o banco de dados
     // Importar antes o módulo de conexão no início do código
 
@@ -165,7 +165,7 @@ app.whenReady().then(() => {
         // a linha abaixo estabelece a conexão com o banco
         dbcon = await dbConnect()
         // enviar ao renderizador uma mensagem para trocar o ícone do status do banco de dados
-        event.reply('db-message', "conectado")
+        event.reply('db-message', "conectado")     
     })
 
     // desconectar do banco ao encerrar a aplicação
@@ -232,114 +232,125 @@ const template = [
         ]
     }
 ]
+/***************************************/
+/***************Clientes***************/
+/***************************************/
 
-/**************************/
-/******** Clientes ********/
-/**************************/
-
-// CRUD Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// Recebimento dos dados do formulário do cliente
-
+//CRUD Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//Recebimento dos dados do formulário do cliente
 ipcMain.on('new-client', async (event, cliente) => {
-    // Teste de recebimento dos dados (Passo 2 - slide) Importante!
+    //teste de recebimento dos dados  (Passo 2 - slide) Importante!
     console.log(cliente)
 
-    // Passo 3 - slide (cadastrar os dados mo banco de dados)
+    //Passo 3 - slide (Cadastrar os dados no banco de dados)
     try {
-        // Criar um novo objeto usando a classe modelo
+        //Criar um novo objeto usando a classe modelo
         const novoCliente = new clienteModel({
             nomeCliente: cliente.nomeCli,
             foneCliente: cliente.foneCli,
-            emailCliente: cliente.emailCli
+            emailCliente: cliente.emailCli,
+            cepCliente: cliente.cepCli,
+            logradouroCliente: cliente.logradouroCli,
+            bairroCliente: cliente.bairroCli,
+            cidadeCliente: cliente.cidadeCli,
+            ufCliente: cliente.ufCli,
+            numeroCliente: cliente.numeroCli,
+            complementoCliente: cliente.complementoCli
+
         })
-        // A linha abaixo usa a biblioteca mongoose para salvar
+        //A linha usa a biblioteca mogoose para salvar
         await novoCliente.save()
 
-        // Confirmação de cliente adicionado no banco
+        //Confirmção de cliente adicionado no banco
         dialog.showMessageBox({
             type: 'info',
-            title: 'Aviso',
-            message: 'Cliente adicionado com sucesso',
+            title: "Aviso",
+            message: "Cliente adicionado com sucesso",
             buttons: ['OK']
         })
-        // Enviar uma resposta ao rendenizador resetar o form
+        //Enviar uma resposta para o redenrizador resetar o form
         event.reply('reset-form')
 
     } catch (error) {
-        console.log(error)
+        console.log(error)     
     }
 })
 
-/******************************/
-/******** Fornecedores ********/
-/******************************/
+/*******************************************/
+/***************Fornecedores***************/
+/*****************************************/
 
-ipcMain.on('new-forn', async (event, fornecedor) => {
-    // Teste de recebimento dos dados (Passo 2 - slide) Importante!
-    console.log(fornecedor)
+//CRUD Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//Recebimento dos dados do formulário do fornecedor
 
-    // Passo 3 - slide (cadastrar os dados mo banco de dados)
+ipcMain.on('new-supplier', async (event,fornecedores) => {
+    //teste de recebimento dos dados  (Passo 2 - slide) Importante!
+    console.log(fornecedores)
+
+    //Passo 3 - slide (Cadastrar os dados no banco de dados)
     try {
-        // Criar um novo objeto usando a classe modelo
-        const novoFornecedor = new fornecedorModel({
-            nomeFornecedor: fornecedor.nomeForn,
-            foneFornecedor: fornecedor.foneForn,
-            siteFornecedor: fornecedor.siteForn
-        })
-        // A linha abaixo usa a biblioteca mongoose para salvar
-        await novoFornecedor.save()
+        //Criar um novo objeto usando a classe modelo
+        const novoFornecedores = new fornecedorModel({
+            nomeFornecedores: fornecedores.nomeFor,
+            foneFornecedores: fornecedores.foneFor,
+            siteFornecedores: fornecedores.siteFor,
+            cepFornecedores: fornecedores.cepFor,
+            logradouroFornecedores: fornecedores.logradouroFor,
+            bairroFornecedores: fornecedores.bairroFor,
+            cidadeFornecedores: fornecedores.cidadeFor,
+            ufFornecedores: fornecedores.ufFor,
+            numeroFornecedores: fornecedores.numeroFor,
+            complementoFornecedores: fornecedores.complementoFor
 
-        // Confirmação de cliente adicionado no banco
+        })
+        //A linha usa a biblioteca mogoose para salvar
+        await novoFornecedores.save()
+
+        //Confirmção de cliente adicionado no banco
         dialog.showMessageBox({
             type: 'info',
-            title: 'Aviso',
-            message: 'Produto adicionado com sucesso',
+            title: "Aviso",
+            message: "Fornecedores adicionado com sucesso",
             buttons: ['OK']
         })
-        // Enviar uma resposta ao rendenizador resetar o form
+        //Enviar uma resposta para o redenrizador resetar o form
         event.reply('reset-form')
 
     } catch (error) {
-        console.log(error)
+        console.log(error)     
     }
 })
 
-// CRUD Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// Recebimento dos dados do formulário do fornecedor
+/*******************************************/
+/***************Fornecedores***************/
+/*****************************************/
 
-/**************************/
-/******** Produtos ********/
-/**************************/
-
-ipcMain.on('new-prod', async (event, produtos) => {
-    // Teste de recebimento dos dados (Passo 2 - slide) Importante!
+ipcMain.on('new-product', async (event,produtos) => {
+    //teste de recebimento dos dados  (Passo 2 - slide) Importante!
     console.log(produtos)
 
-    // Passo 3 - slide (cadastrar os dados mo banco de dados)
+    //Passo 3 - slide (Cadastrar os dados no banco de dados)
     try {
-        // Criar um novo objeto usando a classe modelo
-        const novoProduto = new produtosModel({
-            nomeProdutos: produtos.nomeProd,
-            codigoProdutos: produtos.codigoProd,
-            precoProdutos: produtos.precoProd
+        //Criar um novo objeto usando a classe modelo
+        const novoProdutos = new produtosModel({
+        nomeProdutos: produtos.nomePro,
+         precoProdutos: produtos.precoPro,
+        codigoProdutos: produtos.codigoPro
         })
-        // A linha abaixo usa a biblioteca mongoose para salvar
-        await novoProduto.save()
+        //A linha usa a biblioteca mogoose para salvar
+        await novoProdutos.save()
 
-        // Confirmação de cliente adicionado no banco
+        //Confirmção de cliente adicionado no banco
         dialog.showMessageBox({
             type: 'info',
-            title: 'Aviso',
-            message: 'Produto adicionado com sucesso',
+            title: "Aviso",
+            message: "Produtos adicionado com sucesso",
             buttons: ['OK']
         })
-        // Enviar uma resposta ao rendenizador resetar o form
+        //Enviar uma resposta para o redenrizador resetar o form
         event.reply('reset-form')
 
     } catch (error) {
-        console.log(error)
+        console.log(error)     
     }
 })
-
-// CRUD Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// Recebimento dos dados do formulário do fornecedor

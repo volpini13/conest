@@ -13,11 +13,11 @@
 <body>
     <div class="container">
         <h1>Produtos</h1>
-        <form id="frmProdutos" class="mt-2 row g-3">
+        <form id="frmProduct" class="mt-2 row g-3">
 
             <!-- Buscar cliente -->
             <div class="col-md-6">
-                <input type="text" class="form-control" id="searchProdutos" maxlength="30" spellcheck="false">
+                <input type="text" class="form-control" id="searchProduct" maxlength="30" spellcheck="false">
             </div>
             <div class="col-md-4">
                 <button class="btn btn-primary" id="btnRead">Buscar</button>
@@ -26,26 +26,26 @@
             <hr class="mt-4 border border-primary border -1">
 
             <!-- Id do cliente (oculto) -->
-            <div class="col-md-6" id="inputProdutos">
-                <input class="form-control" type="text" id="inputProdutos" placeholder="id">
+            <div class="col-md-6" id="idProduct">
+                <input class="form-control" type="text" id="inpuProduct" placeholder="id">
             </div>
 
-            <!-- Fornecedor -->
+            <!-- Nome -->
             <div class="col-md-8">
-                <label for="inputNameClient" class="form-label">Produto</label>
-                <input class="form-control" type="text" id="inputNameProdutos" spellcheck="false" required maxlength="50">
+                <label for="inputNameProduct" class="form-label">Produto</label>
+                <input class="form-control" type="text" id="inputNameProduct" spellcheck="false" required maxlength="50">
             </div>
 
             <!-- Fone -->
             <div class="col-md-4">
-                <label for="inputPhoneClient" class="form-label">Preço</label>
-                <input class="form-control" type="tel" id="inputPrecoProdutos" spellcheck="false" required maxlength="15">
+                <label for="inputPrecoProduct" class="form-label">Preço</label>
+                <input class="form-control" type="number" id="inputPrecoProduct" spellcheck="false" required maxlength="15">
             </div>
 
             <!-- Email -->
             <div class="col-md-8">
-                <label for="inputEmailClient" class="form-label">Código de Barra</label>
-                <input class="form-control" type="text" id="inputCodigoProdutos" spellcheck="false">
+                <label for="inputCodigoProduct" class="form-label">Codigo de Barras</label>
+                <input class="form-control" type="text" id="inputCodigoProduct" spellcheck="false" maxlength="50">
             </div>
 
             <!-- Botões -->
