@@ -17,17 +17,17 @@
 
             <!-- Buscar cliente -->
             <div class="col-md-6">
-                <input type="text" class="form-control" id="searchClient" maxlength="30" spellcheck="false">
+                <input type="text" class="form-control" id="search-client" maxlength="30" spellcheck="false">
             </div>
             <div class="col-md-4">
-                <button class="btn btn-primary" id="btnRead">Buscar</button>
+                <button class="btn btn-primary" id="btnRead" onclick="buscarCliente()">Buscar</button>
             </div>
 
             <hr class="mt-4 border border-primary border -1">
 
             <!-- Id do cliente (oculto) -->
             <div class="col-md-6" id="idClient">
-                <input class="form-control" type="text" id="inpuClient" placeholder="id">
+                <input class="form-control" type="text" id="inputClient" placeholder="id">
             </div>
 
             <!-- Nome -->
@@ -83,7 +83,7 @@
              <!-- Numero-->
              <div class="col-md-2">
                 <label for="inputNumeroClient" class="form-label">Número</label>
-                <input class="form-control" type="number" id="inputNumeroClient" spellcheck="false" maxlength="50" required>
+                <input class="form-control" type="text" id="inputNumeroClient" spellcheck="false" maxlength="50" required>
             </div>
 
              <!--Complemento-->

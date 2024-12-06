@@ -17,17 +17,17 @@
 
             <!-- Buscar Fornecedores -->
             <div class="col-md-6">
-                <input type="text" class="form-control" id="searchSupplier" maxlength="30" spellcheck="false">
+                <input type="text" class="form-control" id="search-supplier" maxlength="30" spellcheck="false">
             </div>
             <div class="col-md-4">
-                <button class="btn btn-primary" id="btnRead">Buscar</button>
+                <button class="btn btn-primary" id="btnRead" onclick="buscarFornecedores()">Buscar</button>
             </div>
 
             <hr class="mt-4 border border-primary border -1">
 
             <!-- Id do cliente (oculto) -->
             <div class="col-md-6" id="idSupplier">
-                <input class="form-control" type="text" id="inpuSupplier" placeholder="id">
+                <input class="form-control" type="text" id="inputSupplier" placeholder="id">
             </div>
 
             <!-- Nome -->
@@ -83,7 +83,7 @@
             <!-- Numero-->
             <div class="col-md-2">
                 <label for="inputNumeroSupplier" class="form-label">Número</label>
-                <input class="form-control" type="number" id="inputNumeroSupplier" spellcheck="false" maxlength="50" required>
+                <input class="form-control" type="text" id="inputNumeroSupplier" spellcheck="false" maxlength="50" required>
             </div>
 
              <!--Complemento-->
@@ -93,6 +93,7 @@
             </div>
 
 
+       
             <!-- Botões -->
             <div class="mt-5">
                 <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>

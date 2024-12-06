@@ -17,17 +17,25 @@
 
             <!-- Buscar cliente -->
             <div class="col-md-6">
-                <input type="text" class="form-control" id="searchProduct" maxlength="30" spellcheck="false">
+                <input type="text" class="form-control" id="search-product" maxlength="30" spellcheck="false" placeholder="Nome do Produto">
             </div>
             <div class="col-md-4">
-                <button class="btn btn-primary" id="btnRead">Buscar</button>
+                <button class="btn btn-primary" id="btnRead" onclick="buscarProdutos()">Buscar</button>
             </div>
 
+            <hr class="mt-4 border border-primary border -1">
+             <!-- Buscar codigo -->
+             <div class="col-md-6">
+                <input type="text" class="form-control" id="search-codigo" maxlength="30" spellcheck="false" placeholder="Código de Barras">
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" id="btnRead" onclick="buscarCodigo()">Buscar</button>
+            </div>
             <hr class="mt-4 border border-primary border -1">
 
             <!-- Id do cliente (oculto) -->
             <div class="col-md-6" id="idProduct">
-                <input class="form-control" type="text" id="inpuProduct" placeholder="id">
+                <input class="form-control" type="text" id="inputProduct" placeholder="id">
             </div>
 
             <!-- Nome -->

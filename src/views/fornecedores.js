@@ -3,6 +3,7 @@
  * clientes.html
  */
 
+let arrayFornecedores = []
 
 
 //Crud Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -58,6 +59,44 @@ api.resetarFormulario((args)=>{
    document.getElementById('inputNumeroSupplier').value=""
    document.getElementById('inputComplementoSupplier').value=""
 })
+// CRUD Read >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+function buscarFornecedores() {
+    // Passo 1 (slide)
+    let forNome = document.getElementById('search-supplier').value
+    console.log(forNome) // Teste do passo 1
+    // Passo 2 (slide) - Enviar o pedido de busca do cliente ao main.js
+    api.buscarFornecedores(forNome)
+    // Passo 5 - Recebimento 
+    api.rendenizarFornecedores((event, dadosFornededores) => {
+        // Teste de recebimento dos dados do cliente
+        console.log(dadosFornededores)
+        // Passo 6 (slide) - Rendenização dos dados do cliente no formulário
+        const fornecedoresRendenizado = JSON.parse(dadosFornededores)
+        arrayFornecedores = fornecedoresRendenizado
+        // teste para entendimento da lógica
+        console.log(arrayFornecedores)
+        // Percorrer o array de clientes, extrair os dados e setar (preencher) os campos do formulário
+        arrayFornecedores.forEach((f) => {
+            document.getElementById('inputSupplier').value = f._id
+            document.getElementById('inputNameSupplier').value = f.nomeFornecedores
+            document.getElementById('inputPhoneSupplier').value = f.foneFornecedores
+            document.getElementById('inputSiteSupplier').value = f.siteFornecedores
+            document.getElementById('inputCepSupplier').value = f.cepFornecedores
+            document.getElementById('inputLogradouroSupplier').value = f.logradouroFornecedores
+            document.getElementById('inputBairroSupplier').value = f.bairroFornecedores
+            document.getElementById('inputCidadeSupplier').value = f.cidadeFornecedores
+            document.getElementById('inputUfSupplier').value = f.ufFornecedores
+            document.getElementById('inputNumeroSupplier').value = f.numeroFornecedores
+            document.getElementById('inputComplementoSupplier').value = f.complementoFornecedores
+            
+            
+        })
+    })
+}
+
+
+// Fim do CRUD Read <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 
 // Função que faz a busca do endereço pelo CEP
 async function buscarEndereco() {
